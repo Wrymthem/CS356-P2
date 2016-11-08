@@ -1,0 +1,9 @@
+import javax.swing.*;
+
+public class Admin {
+
+	Admin() {
+		JFrame adminPanel = new JFrame("Admin");
+	}
+	
+}

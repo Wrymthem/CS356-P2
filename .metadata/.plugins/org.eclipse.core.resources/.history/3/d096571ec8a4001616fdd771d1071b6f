@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class User {
+	private String userID;
+	private List <User> followers;
+	private List <User> following;
+	
+	User(String userID) {
+		this.userID = userID;
+		this.followers = new ArrayList <User> ();
+		this.following = new ArrayList <User> ();
+	}
+	
+	public void addFollower(User user) {
+		this.followers.add(user);
+	}
+	
+	public void addFollowing(User user) {
+		this.following.add(user);
+	}
+	
+	public void removeFollower(User user) {
+		this.followers.remove(user);
+	}
+	
+	public void removeFollowing(User user) {
+		this.followering.remove(user);
+	}
+}

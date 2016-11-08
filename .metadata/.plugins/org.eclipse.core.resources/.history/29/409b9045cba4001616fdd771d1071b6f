@@ -1,0 +1,31 @@
+import java.util.*;
+
+
+public class Group {
+	private String groupName;
+	private List <Group> subGroups;
+	private List <User> users;
+	
+	Group(String groupName) {
+		this.groupName = groupName;
+		this.subGroups = new ArrayList <Group> ();
+		this.users = new ArrayList <User> ();
+	}
+	
+	public void addSubGroup(String subGroup) {
+		this.subGroups.add(new Group(subGroup));
+	}
+	
+	public void addUser(String user) {
+		boolean flag = false;
+		this.users.add(new User(user));
+	}
+	
+	public List <Group> getGroup() {
+		return this.subGroups;
+	}
+	
+	public List <User> getUsers() {
+		return this.users;
+	}
+}

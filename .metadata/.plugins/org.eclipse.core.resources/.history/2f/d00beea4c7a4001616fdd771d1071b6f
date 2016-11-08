@@ -1,0 +1,16 @@
+import java.util.*;
+
+public class Users {
+	private String userID;
+	private List <Users> followers;
+	private List <Users> following;
+	
+	Users() {
+		followers = new ArrayList <Users> ();
+		following = new ArrayList <Users> ();
+	}
+	
+	public void addFollower(User user) {
+		
+	}
+}

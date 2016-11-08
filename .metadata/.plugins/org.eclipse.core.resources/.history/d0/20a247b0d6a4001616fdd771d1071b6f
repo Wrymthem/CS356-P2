@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class User implements Subject, Observer {
+	private String userID;
+	private List <Observer> followers = new ArrayList <Observer> ();
+	private List <Subject> following = new ArrayList <Subject> ();
+	private List <Tweet> tweets = new ArrayList <Tweet> ();
+	
+	User(String userID) {
+		this.userID = userID;
+	}
+	
+	public void addFollower(User user) {
+		this.followers.add(user);
+	}
+	
+	public void addFollowing(User user) {
+		this.following.add(user);
+	}
+	
+	public List <User> getFollowers() {
+		return this.followers;
+	}
+	
+	public List <User> getFollowing() {
+		return this.following;
+	}
+	
+	public String getUserID() {
+		return this.userID;
+	}
+
+	public void update(Tweet tweet) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addObserver(Observer o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+}

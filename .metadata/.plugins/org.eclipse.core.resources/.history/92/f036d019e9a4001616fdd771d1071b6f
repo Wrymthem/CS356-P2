@@ -1,0 +1,91 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.tree.*;
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	JTree jtr;
+	
+	GroupComponent root = new UserGroup("root");
+	
+	DefaultMutableTreeNode groups;
+	
+	DefaultMutableTreeNode groupSystem = new DefaultMutableTreeNode(root.toString());
+	
+	private AdminPanel() {
+		// create frame
+		JFrame jfrm = new JFrame("Admin");
+		jfrm.getContentPane().setLayout(new FlowLayout());
+		jfrm.setSize(400, 275);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagConstraints c = new GridBagConstraints();
+		
+		JPanel panel = new JPanel();
+		
+		jtr = new JTree(groupSystem);
+		jtr.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		
+		jtr.addTreeSelectionListener(this);
+		
+		JTextField jtfGroup = new JTextField();
+		jtfGroup.setColumns(10);
+		
+		JButton addGroupButton = new JButton("Add Group");
+		addGroupButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				addAGroup(jtfGroup.getText(), groupSystem);
+			}
+		});
+		
+		JTextField jtfUser = new JTextField();
+		jtfUser.setColumns(10);
+		
+		JButton addUserButton = new JButton("Add Group");
+		addGroupButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				addAGroup(jtfUser.getText(), groupSystem);
+			}
+		});
+		
+		JScrollPane jsp = new JScrollPane(jtr);
+		
+		Dimension d = jsp.getPreferredSize();
+		d.width = 160;
+		d.height = 275;
+		
+		jsp.setPreferredSize(d);
+		
+		panel.add(jtr);
+		panel.add(jtfGroup);
+		panel.add(addGroupButton);
+		panel.add(jtfUser);
+		panel.add(addUserButton);
+		
+		jfrm.add(panel);
+		
+		jfrm.getContentPane().add(panel);
+		jfrm.setVisible(true);
+	}
+	
+	private DefaultMutableTreeNode addAGroup(String name, DefaultMutableTreeNode parentGroup) {
+		DefaultMutableTreeNode newDMTN = new DefaultMutableTreeNode(new UserGroup(name));
+		parentGroup.add(newDMTN);
+		
+		return newDMTN;
+	}
+	
+	private DefaultMutableTreeNode addAUser(String name, DefaultMutableTreeNode parentGroup) {
+		DefaultMutableTreeNode newDMTN = new DefaultMutableTreeNode(new User(name));
+		parentGroup.add(newDMTN);
+		
+		return newDMTN;
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

@@ -1,0 +1,7 @@
+public interface Observer {	
+
+	User user;
+	
+	public abstract void update(Tweet tweet);
+
+}

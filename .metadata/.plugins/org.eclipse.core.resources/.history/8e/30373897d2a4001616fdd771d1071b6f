@@ -1,0 +1,12 @@
+
+public class Follower extends Observer {
+	
+	public Follower (User user, User follower) {
+		this.user = user;
+		user.attach(follower);
+	}
+	
+	public void update() {
+		System.out.println(user.getUserID() + ": " + user.getTweet());
+	}
+}

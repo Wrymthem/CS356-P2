@@ -1,0 +1,16 @@
+public class NewsFeed implements Subject {
+	
+	private ArrayList <Observer> observers;
+	
+	
+	public void addObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

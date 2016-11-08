@@ -1,0 +1,18 @@
+import javax.swing.tree.DefaultMutableTreeNode;
+
+
+public abstract class GroupComponent extends DefaultMutableTreeNode {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void addGroupComponent(GroupComponent newUserGroup) {}
+	
+	public void getGroupComponent(GroupComponent userGroup) {}
+	
+	public String toString() {}
+
+	public boolean nameFree(String name) {}
+}

@@ -1,0 +1,11 @@
+import java.util.*;
+
+public class Users {
+	private LinkedList <Users> followers;
+	private LinkedList <Users> following;
+	
+	Users() {
+		followers = new ArrayList <Users> ();
+		following = new ArrayList <Users> ();
+	}
+}

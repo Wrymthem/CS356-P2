@@ -1,0 +1,35 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Admin {
+
+	JTextArea jta;
+	JScrollPane jsp;
+	
+	Admin() {
+		// create frame
+		JFrame jfrm = new JFrame("Admin");
+		jfrm.getContentPane().setLayout(new BorderLayout());
+		jfrm.setSize(400, 275);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		jta = new JTextArea();
+		jta.setText("asdkjfhalskjdfhlakjethlaieuyalkdfnalkjthoeiutyalskjdfnaleuyqoiwetuyqwekjhaljfh");
+		jta.setEditable(true);
+		
+		jsp = new JScrollPane(jta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		jfrm.getContentPane().add(leftSide);
+		
+		jfrm.setVisible(true);
+	}
+	
+	public static void main (String [] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() { 
+                new Admin();
+            }
+        });
+	}
+}

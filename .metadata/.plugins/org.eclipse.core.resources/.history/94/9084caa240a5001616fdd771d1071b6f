@@ -1,0 +1,109 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.tree.*;
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	JFrame jfrm;
+	JTree jtr;
+	
+	ArrayList <GroupComponent> userGroups = new ArrayList <GroupComponent> ();
+	ArrayList <GroupComponent> users = new ArrayList <GroupComponent> ();
+	
+	GroupComponent root = new UserGroup("root");
+	
+	DefaultMutableTreeNode groupSystem = new DefaultMutableTreeNode(root);
+	
+	private AdminPanel() {
+		userGroups.add(root);
+		// create frame
+		jfrm = new JFrame("Admin");
+		jfrm.getContentPane().setLayout(new BorderLayout());
+		jfrm.setSize(600, 275);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel = new JPanel(new BorderLayout());
+		
+		jtr = new JTree(groupSystem);
+		jtr.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		
+		JTextField jtfGroup = new JTextField();
+		jtfGroup.setColumns(10);
+		
+		JButton addGroupButton = new JButton("Add Group");
+		addGroupButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				addAGroup(jtfGroup.getText());
+			}
+		});
+		
+		JTextField jtfUser = new JTextField();
+		jtfUser.setColumns(10);
+		
+		JButton addUserButton = new JButton("Add User");
+		addUserButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				addAUser(jtfUser.getText());
+			}
+		});
+		
+		JScrollPane jsp = new JScrollPane(jtr);
+		panel.add(jsp);
+		
+		
+		JPanel [][] panelHolder = new JPanel[5][2];
+		JPanel panel2 = new JPanel(new GridLayout(5, 2));
+		
+		for(int m = 0; m < 5; m++) {
+			for(int n = 0; n < 2; n++) {
+				panelHolder[m][n] = new JPanel();
+				panel2.add(panelHolder[m][n]);
+			}
+		}
+		
+		panel.add(jtr);
+		
+		panelHolder[0][0].add(jtfGroup);
+		panelHolder[0][1].add(addGroupButton);
+		panelHolder[1][0].add(jtfUser);
+		panelHolder[1][1].add(addUserButton);
+		
+		jfrm.add(panel, BorderLayout.WEST);
+		jfrm.add(panel2, BorderLayout.LINE_END);
+		
+		jfrm.getContentPane().add(panel);
+		jfrm.setVisible(true);
+	}
+	
+	private void addAGroup(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) jtr.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		addAGroup(name, (UserGroup) current.getParent());
+	}
+	
+	private void addAGroup(String name, UserGroup parentGroup) {
+	}
+	
+	private void addAUser(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) jtr.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		addAGroup(name, (UserGroup) current.getParent());
+	}
+	
+	private void addAUser(String name, UserGroup parentGroup) {
+		for (User u : (User) users)
+			if (u.toString().equals(name)) {
+				JOptionPane.showConfirmDialog(jfrm, "Name in use");
+			}
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

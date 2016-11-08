@@ -1,0 +1,140 @@
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.tree.*;
+
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	JFrame frame;
+	JPanel contentPane;
+	JTree tree;
+	
+	ArrayList <GroupComponent> groupSystem = new ArrayList <GroupComponent> ();
+	
+	GroupComponent root = new UserGroup("root");
+	
+	private void instance() {
+		frame = new JFrame();
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		tree = new JTree(());
+		tree.setBounds(0, 0, 146, 261);
+		contentPane.add(tree);
+		
+		JButton btnAddUser = new JButton("Add User");
+		btnAddUser.setBounds(300, 11, 124, 23);
+		contentPane.add(btnAddUser);
+		
+		JButton button = new JButton("Add Group");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		button.setBounds(300, 45, 124, 23);
+		contentPane.add(button);
+		
+		JButton btnOpenUserView = new JButton("Open User View");
+		btnOpenUserView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnOpenUserView.setBounds(228, 79, 124, 23);
+		contentPane.add(btnOpenUserView);
+		
+		JButton btnShowUserTotal = new JButton("Show User Total");
+		btnShowUserTotal.setBounds(156, 227, 124, 23);
+		contentPane.add(btnShowUserTotal);
+		
+		JButton btnShowMessageTotal = new JButton("Show Message Total");
+		btnShowMessageTotal.setBounds(156, 193, 124, 23);
+		contentPane.add(btnShowMessageTotal);
+		
+		JButton btnNewButton = new JButton("Show Group Total");
+		btnNewButton.setBounds(300, 193, 124, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnShowPositivePercentage = new JButton("Show Positive Percentage");
+		btnShowPositivePercentage.setBounds(300, 227, 124, 23);
+		contentPane.add(btnShowPositivePercentage);
+	}
+	
+	private void addAGroup(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) jtr.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		else if (current == null)
+			current = (DefaultMutableTreeNode) groupSystem.get(0);
+		addAGroup(name, (UserGroup) current);
+	}
+	
+	private void addAGroup(String name, UserGroup parentGroup) {
+		for (GroupComponent u : groupSystem)
+			if (u.toString().equals(name)) {
+				JOptionPane.showMessageDialog(jfrm, "Name in use");
+				return;
+			}
+		UserGroup userGroup = new UserGroup(name);
+		groupSystem.add(userGroup);
+		parentGroup.add(userGroup);
+		update(userGroup, parentGroup);
+	}
+	
+	private void addAUser(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) jtr.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		else if (current == null)
+			current = (DefaultMutableTreeNode) groupSystem.get(0);
+		addAUser(name, (UserGroup) current);
+	}
+	
+	private void addAUser(String name, UserGroup parentGroup) {
+		for (GroupComponent u : groupSystem)
+			if (u.toString().equals(name)) {
+				JOptionPane.showMessageDialog(jfrm, "Name in use");
+				return;
+			}
+		User user = new User(name);
+		groupSystem.add(user);
+		parentGroup.add(user);
+		update(user, parentGroup);
+	}
+	
+	private void update(GroupComponent leaf, UserGroup parent) {
+		parent.add((DefaultMutableTreeNode) leaf);
+		DefaultTreeModel model = new DefaultTreeModel((DefaultMutableTreeNode) groupSystem.get(0));
+		jtr.setModel(model);
+		expandAllNodes(jtr, 0, jtr.getRowCount());
+	}
+	
+	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
+	    for(int i=startingIndex;i<rowCount;++i){
+	        tree.expandRow(i);
+	    }
+
+	    if(tree.getRowCount()!=rowCount){
+	        expandAllNodes(tree, rowCount, tree.getRowCount());
+	    }
+	}
+	
+	private AdminPanel() {
+		groupSystem.add(root);
+		instance();
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

@@ -1,0 +1,10 @@
+import java.util.*;
+
+
+public class Groups {
+	private String groupName;
+	private List <Group> subGroups;
+	private List <User> users;
+	
+	
+}

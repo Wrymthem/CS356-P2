@@ -1,0 +1,22 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Admin {
+
+	JTextArea jta;
+	
+	Admin() {
+		// create frame
+		JFrame jfrm = new JFrame("Admin");
+		jfrm.getContentPane().setLayout(new BorderLayout());
+		jfrm.setSize(400, 275);
+	}
+	
+	public static void main (String [] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() { 
+                new Admin();
+            }
+        });
+	}
+}

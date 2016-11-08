@@ -1,0 +1,110 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+
+
+public class UserPanel implements ActionListener {
+	
+	private User user;
+	private ArrayList <GroupComponent> groupSystem;
+	
+	private JFrame frame;
+	private JPanel contentPane;
+	private JTextField txtUserID;
+	private JTextArea txtFollowing;
+	private JTextArea txtTweet;
+	private JTextArea newsFeed;
+	private JScrollPane followingScrollPane;
+	private JScrollPane newsScrollPane;
+	
+	UserPanel(User user, ArrayList <GroupComponent> groupSystem) {
+		this.user = user;
+		this.groupSystem = groupSystem;
+		
+		frame = new JFrame(this.user.toString());
+		frame.setBounds(100, 100, 450, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnFollowUser = new JButton("Follow User");
+		btnFollowUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnFollowUser.setBounds(228, 11, 196, 23);
+		contentPane.add(btnFollowUser);
+		
+		txtUserID = new JTextField();
+		txtUserID.setBounds(10, 11, 200, 22);
+		contentPane.add(txtUserID);
+		txtUserID.setColumns(10);
+		
+		followingScrollPane = new JScrollPane();
+		followingScrollPane.setBounds(10, 39, 414, 120);
+		contentPane.add(followingScrollPane);
+		
+		txtFollowing = new JTextArea();
+		followingScrollPane.setViewportView(txtFollowing);
+		txtFollowing.setEditable(false);
+		txtFollowing.setWrapStyleWord(true);
+		
+		JButton btnTweetMessage = new JButton("Tweet Message");
+		btnTweetMessage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnTweetMessage.setBounds(228, 184, 196, 23);
+		contentPane.add(btnTweetMessage);
+		
+		txtTweet = new JTextArea();
+		txtTweet.setBounds(10, 170, 200, 50);
+		contentPane.add(txtTweet);
+		
+		newsScrollPane = new JScrollPane();
+		newsScrollPane.setBounds(10, 226, 414, 174);
+		contentPane.add(newsScrollPane);
+		
+		newsFeed = new JTextArea();
+		newsScrollPane.setViewportView(newsFeed);
+		newsFeed.setEditable(false);
+		newsFeed.setWrapStyleWord(true);
+		newsFeed.update(newsFeed.getGraphics());
+		
+		frame.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Follow User")) {
+			int iD = 0;
+			String userID = txtUserID.getText();
+			for (GroupComponent gc : groupSystem) {
+				if (gc instanceof User)
+					if (gc.toString().equals(userID))
+						break;
+				iD++;
+			}
+			this.user.follow((User) groupSystem.get(iD));
+		}
+		else if (e.getActionCommand().equals("Tweet Message")) {
+			
+		}
+	}
+	
+	public void updators() {
+		Runnable newsFeedUpdator = () -> {
+			
+		};
+	}
+}

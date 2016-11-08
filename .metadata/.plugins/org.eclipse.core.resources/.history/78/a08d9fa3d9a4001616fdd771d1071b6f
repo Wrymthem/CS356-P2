@@ -1,0 +1,6 @@
+public interface Subject {
+	
+	public abstract void follow();
+	
+	public abstract void notifyFollowers();
+}

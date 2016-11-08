@@ -1,0 +1,40 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Admin {
+
+	Admin() {
+		// create frame
+		JFrame adminPanel = new JFrame("Admin");
+		adminPanel.setSize(400, 275);
+		adminPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// set layout
+		adminPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		JPanel userList = new JPanel();
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		adminPanel.add(userList, c);
+		
+		JPanel rightSide = new JPanel(new GridBagLayout());
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		adminPanel.add(rightSide, c);
+		
+		JTextArea test1 = new JTextArea();
+		
+		adminPanel.setVisible(true);
+	}
+	
+	public static void main (String [] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() { 
+                new Admin();
+            }
+        });
+	}
+}

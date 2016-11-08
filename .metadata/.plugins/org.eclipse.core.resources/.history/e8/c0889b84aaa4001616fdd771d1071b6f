@@ -1,0 +1,16 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Admin {
+
+	Admin() {
+		// create frame
+		JFrame adminPanel = new JFrame("Admin");
+		adminPanel.setLayout(new GridBagLayout());
+		adminPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel userList = new JPanel();
+		JPanel rightSide = new JPanel(new GridBagLayout())
+;	}
+	
+}

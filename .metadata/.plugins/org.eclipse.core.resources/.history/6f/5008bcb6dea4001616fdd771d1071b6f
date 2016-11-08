@@ -1,0 +1,24 @@
+import java.util.*;
+
+
+public class UserGroup extends GroupComponent {
+	ArrayList <GroupComponent> userGroups = new ArrayList <GroupComponent>();
+	
+	String groupName;
+	
+	public UserGroup(String groupName) {
+		this.groupName = groupName;
+	}
+	
+	public void add(GroupComponent newGroupComponent) {
+		userGroups.add(newGroupComponent);
+	}
+	
+	public String getGroupName() {
+		return this.groupName;
+	}
+	
+	public SongComponent get(int conponentIndex) {
+		return (SongComponent) userGroups.get(conponentIndex);
+	}
+}

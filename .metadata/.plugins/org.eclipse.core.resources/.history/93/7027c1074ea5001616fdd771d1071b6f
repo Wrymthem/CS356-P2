@@ -1,0 +1,80 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTree;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class TestPanel extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TestPanel frame = new TestPanel();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public TestPanel() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTree tree = new JTree();
+		tree.setBounds(0, 0, 146, 261);
+		contentPane.add(tree);
+		
+		JButton btnAddUser = new JButton("Add User");
+		btnAddUser.setBounds(318, 27, 89, 23);
+		contentPane.add(btnAddUser);
+		
+		JButton button = new JButton("Add Group");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		button.setBounds(318, 61, 89, 23);
+		contentPane.add(button);
+		
+		JButton btnOpenUserView = new JButton("Open User View");
+		btnOpenUserView.setBounds(227, 95, 122, 23);
+		contentPane.add(btnOpenUserView);
+		
+		JButton btnShowUserTotal = new JButton("Show User Total");
+		btnShowUserTotal.setBounds(156, 227, 124, 23);
+		contentPane.add(btnShowUserTotal);
+		
+		JButton btnShowMessageTotal = new JButton("Show Message Total");
+		btnShowMessageTotal.setBounds(156, 193, 124, 23);
+		contentPane.add(btnShowMessageTotal);
+		
+		JButton btnNewButton = new JButton("Show Group Total");
+		btnNewButton.setBounds(300, 193, 124, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnShowPositivePercentage = new JButton("Show Positive Percentage");
+		btnShowPositivePercentage.setBounds(300, 227, 124, 23);
+		contentPane.add(btnShowPositivePercentage);
+	}
+}

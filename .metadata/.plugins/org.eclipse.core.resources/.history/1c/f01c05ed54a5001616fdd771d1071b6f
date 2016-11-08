@@ -1,0 +1,55 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.*;
+
+
+public class UserTest {
+
+	private JPanel contentPane;
+	private JFrame frame;
+	private JTextField txtUserid;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UserTest frame = new UserTest();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public UserTest() {
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 450, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Follow User");
+		btnNewButton.setBounds(228, 11, 196, 23);
+		contentPane.add(btnNewButton);
+		
+		txtUserid = new JTextField();
+		txtUserid.setText("userID");
+		txtUserid.setBounds(10, 11, 200, 22);
+		contentPane.add(txtUserid);
+		txtUserid.setColumns(10);
+		frame.setVisible(true);
+	}
+
+}

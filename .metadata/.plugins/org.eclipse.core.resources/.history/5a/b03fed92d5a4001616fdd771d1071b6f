@@ -1,0 +1,6 @@
+
+public class Follower implements Observer {
+	public void update() {
+		System.out.println(user.getUserID() + ": " + user.getTweet());
+	}
+}

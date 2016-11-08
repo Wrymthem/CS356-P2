@@ -1,0 +1,6 @@
+public interface Subject {
+	
+	public abstract void addObserver();
+	
+	public abstract void notifyObserver();
+}

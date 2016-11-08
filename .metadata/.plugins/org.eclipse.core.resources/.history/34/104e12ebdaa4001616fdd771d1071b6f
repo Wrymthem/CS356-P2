@@ -1,0 +1,12 @@
+import java.util.ArrayList;
+
+public class NewsFeed {
+	
+	private ArrayList <Tweet> tweets;
+	
+	NewsFeed () {
+		tweets = new ArrayList <Tweet> ();
+	}
+	
+	
+}

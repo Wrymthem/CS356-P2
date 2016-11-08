@@ -1,0 +1,20 @@
+import java.util.*;
+
+
+public class Group extends UserGroup {
+	ArrayList userGroups = new ArrayList();
+	
+	String groupName;
+	
+	public Group(String groupName) {
+		this.groupName = groupName;
+	}
+	
+	public String getGroupName() {
+		return this.groupName;
+	}
+	
+	public void add(Group group) {
+		userGroups.add(group);
+	}
+}

@@ -1,0 +1,4 @@
+
+public class NewsFeed implements Subject {
+	
+}

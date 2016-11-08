@@ -1,0 +1,37 @@
+import java.util.*;
+
+
+public class UserGroup extends GroupComponent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	ArrayList <GroupComponent> userGroups = new ArrayList <GroupComponent>();
+	
+	String groupName;
+	
+	public UserGroup(String groupName) {
+		this.groupName = groupName;
+	}
+	
+	public void add(GroupComponent newGroupComponent) {
+		userGroups.add(newGroupComponent);
+	}
+	
+	public String toString() {
+		return this.groupName;
+	}
+	
+	public GroupComponent get(int conponentIndex) {
+		return (GroupComponent) userGroups.get(conponentIndex);
+	}
+	
+	public boolean nameFree(String name) {
+		boolean free = true;
+		for (GroupComponent ug : userGroups)
+			if (ug.toString().equals(name))
+				free = false;
+		return free;
+	}
+}

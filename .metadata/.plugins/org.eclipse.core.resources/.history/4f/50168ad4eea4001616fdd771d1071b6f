@@ -1,0 +1,97 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.tree.*;
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	JTree jtr;
+	
+	GroupComponent root = new UserGroup("root");
+	
+	DefaultMutableTreeNode groups;
+	
+	DefaultMutableTreeNode groupSystem = new DefaultMutableTreeNode(root.toString());
+	
+	private AdminPanel() {
+		// create frame
+		JFrame jfrm = new JFrame("Admin");
+		jfrm.getContentPane().setLayout(new BorderLayout());
+		jfrm.setSize(600, 275);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel = new JPanel(new BorderLayout());
+		
+		jtr = new JTree(groupSystem);
+		jtr.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		
+		JTextField jtfGroup = new JTextField();
+		jtfGroup.setColumns(10);
+		
+		JButton addGroupButton = new JButton("Add Group");
+		addGroupButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				addAGroup(jtfGroup.getText(), (DefaultMutableTreeNode) jtr.getSelectionPath().getLastPathComponent());
+			}
+		});
+		
+		JTextField jtfUser = new JTextField();
+		jtfUser.setColumns(10);
+		
+		JButton addUserButton = new JButton("Add User");
+		addUserButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				addAUser(jtfUser.getText(), (DefaultMutableTreeNode) jtr.getSelectionPath().getLastPathComponent());
+			}
+		});
+		
+		JScrollPane jsp = new JScrollPane(jtr);
+		
+		panel.add(jsp);
+		
+		
+		JPanel [][] panelHolder = new JPanel[5][10];
+		JPanel panel2 = new JPanel(new GridLayout(5, 5));
+		
+		for(int m = 0; m < 5; m++) {
+			for(int n = 0; n < 10; n++) {
+				panelHolder[m][n] = new JPanel();
+				panel2.add(panelHolder[m][n]);
+			}
+		}
+		
+		panel.add(jtr);
+		
+		panelHolder[1][2].add(jtfGroup);
+		panelHolder[1][4].add(addGroupButton);
+		panelHolder[2][2].add(jtfUser);
+		panelHolder[2][4].add(addUserButton);
+		
+		jfrm.add(panel, BorderLayout.WEST);
+		jfrm.add(panel2, BorderLayout.EAST);
+		
+		jfrm.getContentPane().add(panel);
+		jfrm.setVisible(true);
+	}
+	
+	private DefaultMutableTreeNode addAGroup(String name, DefaultMutableTreeNode parentGroup) {
+		DefaultMutableTreeNode newDMTN = new DefaultMutableTreeNode((new UserGroup(name)).toString());
+		parentGroup.add(newDMTN);
+		
+		return newDMTN;
+	}
+	
+	private DefaultMutableTreeNode addAUser(String name, DefaultMutableTreeNode parentGroup) {
+		DefaultMutableTreeNode newDMTN = new DefaultMutableTreeNode((new User(name)).toString());
+		parentGroup.add(newDMTN);
+		
+		return newDMTN;
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

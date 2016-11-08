@@ -1,0 +1,29 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Admin {
+
+	Admin() {
+		// create frame
+		JFrame adminPanel = new JFrame("Admin");
+		adminPanel.setLayout(new GridBagLayout());
+		adminPanel.setSize(400, 600);
+		adminPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel userList = new JPanel();
+		JPanel rightSide = new JPanel(new GridBagLayout());
+		
+		adminPanel.add(userList);
+		adminPanel.add(rightSide);
+		
+		adminPanel.setVisible(true);
+	}
+	
+	public static void main (String [] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() { 
+                new Admin();
+            }
+        });
+	}
+}

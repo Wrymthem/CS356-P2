@@ -1,0 +1,6 @@
+/*
+ * My veeeeery small observer interface
+ */
+public interface Observer {	
+	public abstract void update(Tweet tweet);
+}

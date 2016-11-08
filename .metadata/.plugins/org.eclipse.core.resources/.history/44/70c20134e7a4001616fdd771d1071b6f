@@ -1,0 +1,68 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.tree.*;
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	JTree jtr;
+	
+	GroupComponent root = new UserGroup("Root");
+	
+	DefaultMutableTreeNode groups;
+	
+	DefaultMutableTreeNode groupSystem = new DefaultMutableTreeNode("Root");
+	
+	private AdminPanel() {
+		// create frame
+		JFrame jfrm = new JFrame("Admin");
+		jfrm.getContentPane().setLayout(new GridBagLayout());
+		jfrm.setSize(400, 275);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagConstraints c = new GridBagConstraints();
+		
+		JPanel panel = new JPanel();
+		
+		jtr = new JTree(groupSystem);
+		jtr.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		
+		JTextField jtf = new JTextField();
+		jtf.setColumns(10);
+		
+		JButton addGroupButton = new JButton("Add Group");
+		addGroupButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				addAGroup(jtf.getText(), groupSystem);
+			}
+		});
+		
+		JScrollPane jsp = new JScrollPane(jtr);
+		
+		Dimension d = jsp.setPreferredSize();
+		d.width(160);
+		d.height(275);
+		
+		panel.add(jtr);
+		panel.add(jtf);
+		panel.add(addGroupButton);
+		
+		jfrm.add(panel);
+		
+		jfrm.getContentPane().add(panel);
+		jfrm.setVisible(true);
+	}
+	
+	private DefaultMutableTreeNode addAGroup(String name, DefaultMutableTreeNode parentGroup) {
+		DefaultMutableTreeNode newDMTN = new DefaultMutableTreeNode(new UserGroup(name));
+		parentGroup.add(newDMTN);
+		
+		return newDMTN;
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

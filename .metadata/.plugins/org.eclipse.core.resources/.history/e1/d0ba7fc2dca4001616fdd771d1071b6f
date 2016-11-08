@@ -1,0 +1,6 @@
+import java.util.*;
+
+
+public class Group extends UserGroup {
+	ArrayList userGroups = new ArrayList();
+}

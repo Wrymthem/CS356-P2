@@ -1,0 +1,12 @@
+
+public abstract class GroupComponent {
+	
+	public void addGroupComponent(GroupComponent newUserGroup) {}
+	
+	public void getGroupComponent(GroupComponent userGroup) {}
+	
+	public User getUser() {}
+	
+	public void displayInfo() {}
+
+}

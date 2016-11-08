@@ -1,0 +1,195 @@
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.tree.*;
+
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	private JFrame frame;
+	private JPanel contentPane;
+	private JTree tree;
+	
+	private ArrayList <GroupComponent> groupSystem = new ArrayList <GroupComponent> ();
+	
+	private GroupComponent root = new UserGroup("root");
+	private int users = 0;
+	private int groups = 0;
+	
+	private void instance() {
+		frame = new JFrame();
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 550, 350);
+		frame.setResizable(false);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 208, 299);
+		contentPane.add(scrollPane);
+		
+		tree = new JTree((DefaultMutableTreeNode) groupSystem.get(0 ));
+		scrollPane.setViewportView(tree);
+		
+		JTextField txtAddUser = new JTextField();
+		txtAddUser.setBounds(228, 11, 146, 23);
+		contentPane.add(txtAddUser);
+		txtAddUser.setColumns(10);
+		
+		JButton btnAddUser = new JButton("Add User");
+		btnAddUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addAUser(txtAddUser.getText());
+			}
+		});
+		btnAddUser.setBounds(388, 11, 146, 23);
+		contentPane.add(btnAddUser);
+		
+		JTextField txtAddGroup = new JTextField();
+		txtAddGroup.setColumns(10);
+		txtAddGroup.setBounds(228, 45, 146, 23);
+		contentPane.add(txtAddGroup);
+		
+		JButton button = new JButton("Add Group");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addAGroup(txtAddGroup.getText());
+			}
+		});
+		button.setBounds(388, 45, 146, 23);
+		contentPane.add(button);
+		
+		JButton btnOpenUserView = new JButton("Open User View");
+		btnOpenUserView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GroupComponent gc = tree.getLastSelectedPathComponent();
+				
+				UserPanel up = new UserPanel((User) tree.getLastSelectedPathComponent(), groupSystem);
+			}
+		});
+		btnOpenUserView.setBounds(308, 79, 146, 23);
+		contentPane.add(btnOpenUserView);
+		
+		JButton btnShowUserTotal = new JButton("Show User Total");
+		btnShowUserTotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(frame, totalUsers());
+			}
+		});
+		btnShowUserTotal.setBounds(228, 253, 146, 23);
+		contentPane.add(btnShowUserTotal);
+		
+		JButton btnShowMessageTotal = new JButton("Show Message Total");
+		btnShowMessageTotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnShowMessageTotal.setBounds(228, 287, 146, 23);
+		contentPane.add(btnShowMessageTotal);
+		
+		JButton btnNewButton = new JButton("Show Group Total");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(frame, totalGroups());
+			}
+		});
+		btnNewButton.setBounds(388, 253, 146, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnShowPositivePercentage = new JButton("Show Positive Percentage");
+		btnShowPositivePercentage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnShowPositivePercentage.setBounds(388, 287, 146, 23);
+		contentPane.add(btnShowPositivePercentage);
+		
+		frame.setVisible(true);
+	}
+	
+	private void addAGroup(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		else if (current == null)
+			current = (DefaultMutableTreeNode) groupSystem.get(0);
+		addAGroup(name, (UserGroup) current);
+	}
+	
+	private void addAGroup(String name, UserGroup parentGroup) {
+		for (GroupComponent u : groupSystem)
+			if (u.toString().equals(name)) {
+				JOptionPane.showMessageDialog(frame, "Name in use");
+				return;
+			}
+		UserGroup userGroup = new UserGroup(name);
+		groupSystem.add(userGroup);
+		parentGroup.add(userGroup);
+		this.groups++;
+		update(userGroup, parentGroup);
+	}
+	
+	private void addAUser(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		else if (current == null)
+			current = (DefaultMutableTreeNode) groupSystem.get(0);
+		addAUser(name, (UserGroup) current);
+	}
+	
+	private void addAUser(String name, UserGroup parentGroup) {
+		for (GroupComponent u : groupSystem)
+			if (u.toString().equals(name)) {
+				JOptionPane.showMessageDialog(frame, "Name in use");
+				return;
+			}
+		User user = new User(name);
+		groupSystem.add(user);
+		parentGroup.add(user);
+		this.users++;
+		update(user, parentGroup);
+	}
+	
+	private void update(GroupComponent leaf, UserGroup parent) {
+		parent.add((DefaultMutableTreeNode) leaf);
+		DefaultTreeModel model = new DefaultTreeModel((DefaultMutableTreeNode) groupSystem.get(0));
+		tree.setModel(model);
+		expandAllNodes(tree, 0, tree.getRowCount());
+	}
+	
+	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
+	    for(int i=startingIndex;i<rowCount;++i){
+	        tree.expandRow(i);
+	    }
+
+	    if(tree.getRowCount()!=rowCount){
+	        expandAllNodes(tree, rowCount, tree.getRowCount());
+	    }
+	}
+	
+	private String totalUsers() {
+		return  "Total Users: " + this.users;
+	}
+	
+	private String totalGroups() {
+		return  "Total Groups: " + this.groups;
+	}
+	
+	private AdminPanel() {
+		groupSystem.add(root);
+		instance();
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class User {
+	private String userID;
+	private List <User> followers = new ArrayList <User> ();
+	private List <User> following = new ArrayList <User> ();
+	private List <Observer> observer = new ArrayList <Observer> ();
+	private String tweet;
+	
+	User(String userID) {
+		this.userID = userID;
+	}
+	
+	public void addFollower(User user) {
+		this.followers.add(user);
+	}
+	
+	public void addFollowing(User user) {
+		this.following.add(user);
+	}
+	
+	public List <User> getFollowers() {
+		return this.followers;
+	}
+	
+	public List <User> getFollowing() {
+		return this.following;
+	}
+	
+	public String getUserID() {
+		return this.userID;
+	}
+	
+	public String getTweet() {
+		return this.tweet;
+	}
+	
+	public void tweet(String tweet) {
+		this.tweet = tweet;
+		notify();
+	}
+	
+	public void attach(Observer o) {
+		this.observer.add(o);
+	}
+}

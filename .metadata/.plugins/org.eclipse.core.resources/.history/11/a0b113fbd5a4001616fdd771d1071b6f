@@ -1,0 +1,13 @@
+public class Tweet {
+	User user;
+	String tweet;
+	
+	Tweet(User user, String tweet) {
+		this.user = user;
+		this.tweet = tweet;
+	}
+	
+	public User getUser() {
+		return this.user;
+	}
+}

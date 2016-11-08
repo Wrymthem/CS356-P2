@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+public class NewsFeed implements Subject {
+	
+	private ArrayList <Observer> observers;
+	
+	public void addObserver(Observer o) {
+		observers.add(o);
+		
+	}
+
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

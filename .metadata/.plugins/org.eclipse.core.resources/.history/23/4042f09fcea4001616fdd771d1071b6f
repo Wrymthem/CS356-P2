@@ -1,0 +1,7 @@
+
+public class Tweet extends Observer {
+	
+	public void update();
+	
+	
+}

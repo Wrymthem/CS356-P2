@@ -1,0 +1,12 @@
+
+public class Tweet extends Observer {
+	
+	public Tweet (User user) {
+		this.user = user;
+		user.attach(this);
+	}
+	
+	public void update() {
+		
+	}
+}

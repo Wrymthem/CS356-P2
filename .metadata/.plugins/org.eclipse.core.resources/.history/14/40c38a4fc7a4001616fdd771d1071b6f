@@ -1,0 +1,4 @@
+public class Users {
+	private LinkedList followers;
+	private LinkedList following;
+}

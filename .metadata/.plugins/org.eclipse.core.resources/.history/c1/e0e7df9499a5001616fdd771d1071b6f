@@ -1,0 +1,94 @@
+import java.util.*;
+
+public class User extends GroupComponent implements Subject, Observer {
+	
+	/*
+	 * This is my User class, some pretty neat stuff here
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String userName;
+	
+	/*
+	 * This thing right here is where all the magic happens. This
+	 * variable allows us to not only have a single instance of any
+	 * user's panel, but it also allows us to update our news feed
+	 * from here, when we call notifyAllObservers()
+	 * 
+	 * How cool is that? >:U
+	 */
+	private UserPanel panel;
+	
+	private List <Observer> followers;
+	private List <Subject> following;
+	
+	private List <Tweet> tweets;
+	private List <Tweet> newsFeed;
+	
+	User(String userName) {
+		this.userName = userName;
+		this.followers = new ArrayList <Observer> ();
+		this.following = new ArrayList <Subject> ();
+		this.tweets = new ArrayList <Tweet> ();
+		this.newsFeed = new ArrayList <Tweet> ();
+	}
+	
+	public List <Observer> getFollowers() {
+		return this.followers;
+	}
+	
+	public List <Subject> getFollowing() {
+		return this.following;
+	}
+	
+	public List <Tweet> getNewsFeed() {
+		return this.newsFeed;
+	}
+	
+	public List <Tweet> getTweets() {
+		return this.tweets;
+	}
+	
+	public UserPanel getPanel() {
+		return panel;
+	}
+	
+	public void setPanel(UserPanel panel) {
+		this.panel = panel;
+	}
+	
+	public String toString() {
+		return this.userName;
+	}
+
+	public void follow(User u) {
+		this.following.add(u);
+		u.subscribe(this);
+	}
+	
+	public void subscribe(Observer o) {
+		this.followers.add(o);
+	}
+
+	public void newTweet(String newTweet) {
+		this.tweets.add(new Tweet(newTweet, this));
+		notifyFollowers();
+	}
+	
+	public void notifyFollowers() {
+		for (Observer o : followers)
+			o.update(this.tweets.get(this.tweets.size() - 1));
+	}
+
+	public void update(Tweet tweet) {
+		this.newsFeed.add(tweet);
+		this.panel.updateNewsFeed();
+	}
+	
+	public boolean isFollowing(String userID) {
+		for (Subject s : this.following)
+			if (s.toString().equals(userID))
+				return true;
+		return false;
+	}
+}

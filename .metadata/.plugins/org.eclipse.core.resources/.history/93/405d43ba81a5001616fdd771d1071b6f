@@ -1,0 +1,69 @@
+import java.util.*;
+
+public class User extends GroupComponent implements Subject, Observer {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String userName;
+	
+	private List <Observer> followers;
+	private List <Subject> following;
+	
+	private List <Tweet> tweets;
+	private List <Tweet> newsFeed;
+	
+	User(String userName) {
+		this.userName = userName;
+		this.followers = new ArrayList <Observer> ();
+		this.following = new ArrayList <Subject> ();
+		this.tweets = new ArrayList <Tweet> ();
+		this.newsFeed = new ArrayList <Tweet> ();
+	}
+	
+	public List <Observer> getFollowers() {
+		return this.followers;
+	}
+	
+	public List <Subject> getFollowing() {
+		return this.following;
+	}
+	
+	public List <Tweet> getNewsFeed() {
+		return this.newsFeed;
+	}
+	
+	public String toString() {
+		return this.userName;
+	}
+
+	public void follow(User u) {
+		this.following.add(u);
+		u.subscribe(this);
+	}
+	
+	public void subscribe(Observer o) {
+		this.followers.add(o);
+	}
+
+	public void newTweet(String newTweet) {
+		this.tweets.add(new Tweet(newTweet, this));
+		notifyFollowers();
+	}
+	
+	public void notifyFollowers() {
+		for (Observer o : followers)
+			o.update(this.tweets.get(this.tweets.size() - 1));
+	}
+
+	public void update(Tweet tweet) {
+		this.newsFeed.add(tweet);
+	}
+	
+	public boolean isFollowing(String userID) {
+		for (Subject s : this.following)
+			
+	}
+}

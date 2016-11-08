@@ -1,0 +1,28 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Admin {
+
+	JTextArea jta;
+	
+	Admin() {
+		// create frame
+		JFrame adminPanel = new JFrame("Admin");
+		adminPanel.setSize(400, 275);
+		adminPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// set layout
+		adminPanel.setLayout(new BorderLayout());
+		
+		
+		adminPanel.setVisible(true);
+	}
+	
+	public static void main (String [] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() { 
+                new Admin();
+            }
+        });
+	}
+}

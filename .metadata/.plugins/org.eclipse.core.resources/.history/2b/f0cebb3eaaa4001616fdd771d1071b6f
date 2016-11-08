@@ -1,0 +1,13 @@
+import javax.swing.*;
+
+public class Admin {
+
+	Admin() {
+		// create frame
+		JFrame adminPanel = new JFrame("Admin");
+		adminPanel.setLayout(new GridBagLayout());
+		
+		JPanel userList = new JPanel();
+	}
+	
+}

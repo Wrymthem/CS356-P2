@@ -1,0 +1,46 @@
+import java.util.*;
+
+
+public class Group {
+	private String groupName;
+	private List <Group> subGroups = new ArrayList <Group> ();;
+	private List <User> users = new ArrayList <User> ();;
+	
+	Group(String groupName) {
+		this.groupName = groupName;
+	}
+	
+	public void addSubGroup(String subGroup) {
+		boolean unique = true;
+		for (Group g : subGroups)
+			if (g.getGroupName().matches(subGroup))
+				unique = false;
+		if (unique)
+			this.subGroups.add(new Group(subGroup));
+	}
+	
+	public void addUser(String user) {
+		boolean unique = true;
+		for (User u : users)
+			if (u.getUserID().matches(user))
+				unique = false;
+		if (unique)
+			this.users.add(new User(user));
+	}
+	
+	public List <Group> getSubGroup() {
+		return this.subGroups;
+	}
+	
+	public List <User> getUsers() {
+		return this.users;
+	}
+	
+	public String getGroupName() {
+		return this.groupName;
+	}
+	
+	public String toString() {
+		
+	}
+}

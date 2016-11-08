@@ -1,0 +1,6 @@
+
+public abstract class UserGroup {
+	
+	public void add(UserGroup newUserGroup)
+
+}

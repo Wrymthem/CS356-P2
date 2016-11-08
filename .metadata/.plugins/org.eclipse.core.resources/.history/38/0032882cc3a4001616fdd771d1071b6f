@@ -1,0 +1,42 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Admin {
+
+	JTextArea jta;
+	
+	Admin() {
+		// create frame
+		JFrame adminPanel = new JFrame("Admin");
+		adminPanel.setSize(400, 275);
+		adminPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// set layout
+		adminPanel.setLayout(new BorderLayout());
+		
+		JPanel userList = new JPanel();
+		userList.setPreferredSize(new Dimension(160, 275));
+		adminPanel.getContentPane().add(userList, constraints);
+		
+		JPanel rightSide = new JPanel();
+		adminPanel.add(rightSide, c);
+		
+		jta = new JTextArea();
+		JButton test2 = new JButton("test2");
+		
+		c.fill = GridBagConstraints.BOTH;
+		userList.add(jta, c);
+		c.fill = GridBagConstraints.BOTH;
+		rightSide.add(test2, c);
+		
+		adminPanel.setVisible(true);
+	}
+	
+	public static void main (String [] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() { 
+                new Admin();
+            }
+        });
+	}
+}

@@ -1,0 +1,12 @@
+
+public abstract class UserGroup {
+	
+	public void addUserGroup(UserGroup newUserGroup) {}
+	
+	public void getUserGroup(UserGroup userGroup) {}
+	
+	public User getUser () {}
+	
+	public void displayInfo() {}
+
+}

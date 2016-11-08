@@ -1,0 +1,89 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class UserTest {
+
+	private JFrame frame;
+	private JPanel contentPane;
+	private JTextField txtUserID;
+	private JTextPane txtFollowing;
+	private JTextArea txtTweet;
+	private JTextPane newsFeed;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UserTest frame = new UserTest();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public UserTest() {
+		
+		frame = new JFrame("Blah");
+		frame.setBounds(100, 100, 450, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnFollowUser = new JButton("Follow User");
+		btnFollowUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnFollowUser.setBounds(228, 11, 196, 23);
+		contentPane.add(btnFollowUser);
+		
+		txtUserID = new JTextField();
+		txtUserID.setBounds(10, 11, 200, 22);
+		contentPane.add(txtUserID);
+		txtUserID.setColumns(10);
+		
+		txtFollowing = new JTextPane();
+		txtFollowing.setBounds(10, 39, 414, 120);
+		contentPane.add(txtFollowing);
+		txtFollowing.setEditable(false);
+		
+		JButton btnTweetMessage = new JButton("Tweet Message");
+		btnTweetMessage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnTweetMessage.setBounds(228, 184, 196, 23);
+		contentPane.add(btnTweetMessage);
+		
+		txtTweet = new JTextArea();
+		txtTweet.setBounds(10, 170, 200, 50);
+		contentPane.add(txtTweet);
+		
+		newsFeed = new JTextPane();
+		newsFeed.setBounds(10, 226, 414, 174);
+		contentPane.add(newsFeed);
+		frame.setVisible(true);
+		newsFeed.setEditable(false);
+	}
+}

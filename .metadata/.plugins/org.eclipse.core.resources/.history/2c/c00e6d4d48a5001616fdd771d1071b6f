@@ -1,0 +1,112 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.tree.*;
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	JFrame jfrm;
+	JTree jtr;
+	JSplitPane jsp;
+	
+	ArrayList <GroupComponent> groupSystem = new ArrayList <GroupComponent> ();
+	
+	GroupComponent root = new UserGroup("root");
+	
+	private void instance() {
+		jfrm = new JFrame("Twitter - Admin Panel");
+		jfrm.setVisible(true);
+		jfrm.setSize(400, 275);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// set up left side
+		JPanel left = new JPanel(new BorderLayout());
+		JScrollPane jscp = new JScrollPane();
+		
+		// set up JTree
+		jtr = new JTree();
+		DefaultTreeModel model = new DefaultTreeModel((DefaultMutableTreeNode) groupSystem.get(0));
+		jtr.setModel(model);
+		jscp.add(jtr);
+		left.add(jscp);
+		
+		// set up right side
+		JPanel right = new JPanel(new GridLayout(2,5));
+
+		
+		jsp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, left, right);
+		jsp.setDividerLocation(.4);
+		jfrm.getContentPane().add(jsp);
+	}
+	
+	private void addAGroup(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) jtr.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		else if (current == null)
+			current = (DefaultMutableTreeNode) groupSystem.get(0);
+		addAGroup(name, (UserGroup) current);
+	}
+	
+	private void addAGroup(String name, UserGroup parentGroup) {
+		for (GroupComponent u : groupSystem)
+			if (u.toString().equals(name)) {
+				JOptionPane.showMessageDialog(jfrm, "Name in use");
+				return;
+			}
+		UserGroup userGroup = new UserGroup(name);
+		groupSystem.add(userGroup);
+		parentGroup.add(userGroup);
+		update(userGroup, parentGroup);
+	}
+	
+	private void addAUser(String name) {
+		DefaultMutableTreeNode current = (DefaultMutableTreeNode) jtr.getLastSelectedPathComponent();
+		if (current instanceof User)
+			current = (DefaultMutableTreeNode) current.getParent();
+		else if (current == null)
+			current = (DefaultMutableTreeNode) groupSystem.get(0);
+		addAUser(name, (UserGroup) current);
+	}
+	
+	private void addAUser(String name, UserGroup parentGroup) {
+		for (GroupComponent u : groupSystem)
+			if (u.toString().equals(name)) {
+				JOptionPane.showMessageDialog(jfrm, "Name in use");
+				return;
+			}
+		User user = new User(name);
+		groupSystem.add(user);
+		parentGroup.add(user);
+		update(user, parentGroup);
+	}
+	
+	private void update(GroupComponent leaf, UserGroup parent) {
+		parent.add((DefaultMutableTreeNode) leaf);
+		DefaultTreeModel model = new DefaultTreeModel((DefaultMutableTreeNode) groupSystem.get(0));
+		jtr.setModel(model);
+		expandAllNodes(jtr, 0, jtr.getRowCount());
+	}
+	
+	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
+	    for(int i=startingIndex;i<rowCount;++i){
+	        tree.expandRow(i);
+	    }
+
+	    if(tree.getRowCount()!=rowCount){
+	        expandAllNodes(tree, rowCount, tree.getRowCount());
+	    }
+	}
+	
+	private AdminPanel() {
+		groupSystem.add(root);
+		instance();
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

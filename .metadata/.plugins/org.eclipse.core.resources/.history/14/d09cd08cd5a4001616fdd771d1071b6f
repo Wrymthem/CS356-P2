@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class NewsFeed implements Subject {
+	
+	private ArrayList <Observer> observers;
+	
+	NewsFeed () {
+		observers = new ArrayList <Observer> ();
+	}
+	
+	public void addObserver(Observer o) {
+		observers.add(o);
+		
+	}
+
+	public void notifyObserver() {
+		for (Observer o : observers)
+			;
+		
+	}
+	
+}

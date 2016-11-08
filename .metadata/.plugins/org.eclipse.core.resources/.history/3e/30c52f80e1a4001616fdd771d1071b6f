@@ -1,0 +1,29 @@
+import java.awt.*;
+import javax.swing.*;
+import java.util.*;
+
+public class AdminPanel {
+
+	private static AdminPanel instance = new AdminPanel();
+	
+	JTree jtr;
+	
+	GroupComponent root = new UserGroup("Root");
+	
+	private AdminPanel() {
+		// create frame
+		JFrame jfrm = new JFrame("Admin");
+		jfrm.getContentPane().setLayout(new GridBagLayout());
+		jfrm.setSize(400, 275);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagConstraints c = new GridBagConstraints();
+		
+		jtr = new JTree();
+		
+		jfrm.setVisible(true);
+	}
+	
+	public static AdminPanel getInstance() {
+		return instance;
+	}
+}

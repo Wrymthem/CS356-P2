@@ -1,0 +1,80 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+
+
+public class UserPanel implements ActionListener {
+	
+	private User user;
+	private ArrayList <GroupComponent> groupSystem;
+	
+	private JFrame frame;
+	private JPanel contentPane;
+	private JTextField txtUserID;
+	private JTextPane txtFollowing;
+	private JTextArea txtTweet;
+	private JTextPane newsFeed;
+	
+	UserPanel(User user, ArrayList <GroupComponent> groupSystem) {
+		this.user = user;
+		this.groupSystem = groupSystem;
+		
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 450, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Follow User");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnNewButton.setBounds(228, 11, 196, 23);
+		contentPane.add(btnNewButton);
+		
+		txtUserID = new JTextField();
+		txtUserID.setBounds(10, 11, 200, 22);
+		contentPane.add(txtUserID);
+		txtUserID.setColumns(10);
+		
+		txtFollowing = new JTextPane();
+		txtFollowing.setBounds(10, 39, 414, 120);
+		contentPane.add(txtFollowing);
+		
+		JButton btnTweetMessage = new JButton("Tweet Message");
+		btnTweetMessage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnTweetMessage.setBounds(228, 184, 196, 23);
+		contentPane.add(btnTweetMessage);
+		
+		txtTweet = new JTextArea();
+		txtTweet.setBounds(10, 170, 200, 50);
+		contentPane.add(txtTweet);
+		
+		newsFeed = new JTextPane();
+		newsFeed.setBounds(10, 226, 414, 174);
+		contentPane.add(newsFeed);
+		frame.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("btnNewButton")) {
+			 
+			this.user.follow(new User (txtUserID.getText()));
+		}
+	}
+}

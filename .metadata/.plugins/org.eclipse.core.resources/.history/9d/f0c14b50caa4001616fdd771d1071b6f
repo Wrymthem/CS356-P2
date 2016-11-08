@@ -1,0 +1,7 @@
+
+public class Twitter {
+	public static void main (String [] args) {
+		Admin adminPanel = new Admin();
+		adminPanel.getInstance();
+	}
+}
